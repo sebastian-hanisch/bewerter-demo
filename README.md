@@ -1,5 +1,7 @@
 # Die Bewerter sind unsicher: Rauschen und Manipulation – Streamlit-Demo
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-bewerter-demo.streamlit.app/)**
+
 Fünfzehntes Stück der **Ranking-Linie** (Konzepte-Demo), Nachfolger von `rangaggregation-demo` und `learning-to-rank-demo`: Mehrere Bewerter bringen je eine Rangfolge, aber nicht alle sind
 gleich gut, manche raten, manche manipulieren. Gemessen wird, **wie viele Bewerter man braucht**, **was gemischte Qualität und Zufalls-Bewerter ausmachen**, **was die Gewichtung nach
 Übereinstimmung leistet** und **wie viele Manipulatoren den Sieger kippen** (Ziel hochsetzen gegen den Besten begraben, Minderheit gegen Mehrheit). Das Vehikel ist das neutrale, simulierte
@@ -124,4 +126,4 @@ Gebaut mit Streamlit, Plotly, numpy, pandas und fpdf2.
 
 ---
 
-Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zu den Demos: [Interaktive Demos](https://sebastianhanisch.net/demos.html).
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zur Reihe: [Ranking: von der Siegtabelle bis Learning to Rank](https://sebastianhanisch.net/konzepte-ranking.html).
