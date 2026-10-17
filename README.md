@@ -50,6 +50,10 @@ Alle Zahlen: 60 feste Läufe, 8 Teilnehmer; „Abstand“ ist der Anteil falsch 
 
 ## Befunde und Korrekturen gegenüber dem Plan
 
+- **Korrektur 2026-10-17 (Eigenschaftstest):** Die Gleichstandsregel der Kemeny-Aggregation (Zusatzterm 1e-9 · (n−1−Rang des Schlüssels) · Zahl der gesetzten Kandidaten) war nicht eindeutig: bei mehreren optimalen Rangfolgen
+  entschied der Kandidatenindex statt des Zufallsschlüssels (38 von 2000 Zufallsprofilen, nur bei Gleichständen im Optimum). Jetzt gewinnt unter den optimalen Rangfolgen die lexikographisch kleinste Folge der Schlüsselränge;
+  Regressionstest `test_kemeny_ties_between_several_optima_are_resolved_by_the_key_not_by_the_index`. **Alle Zahlen dieser README blieben innerhalb der Toleranz der Claims-Tests unverändert.** Außerdem teilte
+  `weighted_borda` bei einem einzigen Kandidaten durch null (außerhalb des Demo-Bereichs); behoben.
 - **Die Gleichstandsregel verzerrte die Vorab-Messung:** Sie sortierte stabil nach dem Index des Teilnehmers, also zugunsten des wahren Besten (Index 0). Mit einem festen Zufallsschlüssel je
   Instanz liegen die Zahlen etwas schlechter: Borda-Sieger richtig ohne Manipulation 0,95 statt 0,98; Zufall 8 von 15: Borda 0,130 statt 0,112, gewichtet 0,051 statt 0,040, Copeland 0,085 statt
   0,067; Besten ans Ende, 2 von 15: Borda 0,33 statt 0,24. Die Aussagen bleiben.

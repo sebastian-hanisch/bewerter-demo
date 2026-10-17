@@ -53,34 +53,33 @@ def copeland(ranks, tb) -> np.ndarray:
 
 
 def kemeny(ranks, tb) -> np.ndarray:
-    """Rangfolge mit der kleinsten Summe der Kendall-Abstände zu den Eingaben (exakt, O(2^n n²)); Gleichstände nach tb."""
+    """Rangfolge mit der kleinsten Summe der Kendall-Abstände zu den Eingaben (exakt, O(2^n n²)). Unter allen optimalen Rangfolgen gewinnt die lexikographisch
+    kleinste Folge der Gleichstandsrangplätze (Schlüssel `tb`, kleiner = früher): eindeutig, der Kandidatenindex entscheidet nie."""
     P = pref_matrix(ranks)
     n = P.shape[0]
     tb_rank = np.argsort(np.argsort(tb, kind="stable"), kind="stable")
-    cost_table = {0: (0.0, None)}
-    for mask in range(1 << n):
-        if mask not in cost_table:
-            continue
-        base = cost_table[mask][0]
+    full = (1 << n) - 1
+    # g[mask] = kleinste Restkosten, wenn die Kandidaten in `mask` schon gesetzt sind (von hinten nach vorn)
+    g = [0.0] * (1 << n)
+    for mask in range(full - 1, -1, -1):
         placed = [i for i in range(n) if mask >> i & 1]
-        for j in range(n):
-            if mask >> j & 1:
-                continue
-            cost = base + sum(P[j, i] for i in placed) + 1e-9 * (n - 1 - tb_rank[j]) * len(placed)
-            nm = mask | 1 << j
-            if nm not in cost_table or cost < cost_table[nm][0] - 1e-12:
-                cost_table[nm] = (cost, (mask, j))
-    mask, order = (1 << n) - 1, []
-    while mask:
-        prev, j = cost_table[mask][1]
+        g[mask] = min(sum(P[j, i] for i in placed) + g[mask | 1 << j] for j in range(n) if not mask >> j & 1)
+    mask, order = 0, []
+    while mask != full:
+        placed = [i for i in range(n) if mask >> i & 1]
+        costs = {j: sum(P[j, i] for i in placed) + g[mask | 1 << j] for j in range(n) if not mask >> j & 1}
+        best = min(costs.values())
+        j = min((q for q, v in costs.items() if v <= best + 1e-9), key=lambda q: tb_rank[q])
         order.append(j)
-        mask = prev
-    return order_to_rank(order[::-1])
+        mask |= 1 << j
+    return order_to_rank(order)
 
 
 def weights_by_agreement(ranks, consensus) -> np.ndarray:
     n = len(consensus)
     maxd = n * (n - 1) / 2
+    if maxd == 0:  # ein einziger Kandidat: nichts zu vergleichen, alle Bewerter stimmen überein
+        return np.ones(len(ranks))
     return np.array([max(0.0, 1.0 - 2.0 * kendall(r, consensus) / maxd) for r in ranks])
 
 
