@@ -37,7 +37,7 @@ PRESETS = {
 }
 PRESET_HELP = {
     "Viele ehrliche Bewerter": "Neun Bewerter mit einem kleinen eigenen Turnier: Alle Verfahren liegen dicht an der Wahrheit.",
-    "Zufall im Panel": "Acht von fünfzehn Bewertern raten: Borda verliert viel, das gewichtete Borda fängt es auf.",
-    "Zwei Manipulatoren": "Zwei von fünfzehn setzen den wahren Besten ans Ende: Borda verliert den richtigen Sieger fast immer, Copeland und Kemeny halten besser.",
+    "Zufall im Panel": "Acht von fünfzehn Bewertern raten: Borda verliert viel, das gewichtete Borda fängt den größten Teil auf.",
+    "Zwei Manipulatoren": "Zwei von fünfzehn setzen den wahren Besten ans Ende: Borda verliert den richtigen Sieger in etwa zwei von drei Läufen, Copeland und Kemeny halten im Schnitt besser (der gezeigte Lauf ist ein Einzelfall).",
     "Die Mehrheit manipuliert": "Acht von fünfzehn setzen das Ziel auf Platz 1 und den Besten ans Ende: Median, Copeland und Kemeny sind vollständig gekapert.",
 }

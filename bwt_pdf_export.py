@@ -48,6 +48,6 @@ def build_pdf(a: ev.Analysis) -> bytes:
     pdf.ln(4)
     pdf.set_font("Helvetica", "I", 8)
     pdf.multi_cell(0, 4.5, _latin(
-        "Alles ist simuliert (Stärken aus dem Generator der Ranking-Linie, Rangfolgen aus eigenen kleinen Turnieren). Die Manipulatoren kennen die Wahrheit und das Ziel (stärkster Angreifer). "
+        "Alles ist simuliert (Stärken aus dem Generator der Ranking-Linie, Rangfolgen aus eigenen kleinen Turnieren). Die Manipulatoren kennen die Wahrheit und das Ziel, spielen aber nur zwei einfache Strategien."
         "Quelle: Demo von Sebastian Hanisch, sebastianhanisch.net."), new_x="LMARGIN", new_y="NEXT")
     return bytes(pdf.output())

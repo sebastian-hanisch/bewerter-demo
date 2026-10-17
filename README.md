@@ -11,16 +11,17 @@ Turnier der Wurzel (Stärken aus dem Generator Version 1, wortgleich); jeder ehr
 
 Wem vertraut die Rangfolge? **Rauschen mittelt sich heraus:** schlechte Bewerter (ein Spiel je Paar): Abstand zur Wahrheit (Anteil falsch geordneter Paare) bei Borda 0,24 (1 Bewerter), 0,12 (5),
 0,035 (15), 0,011 (31). **Zufalls-Bewerter** kosten das Borda am meisten: bei 8 von 15 Abstand 0,13, gewichtet 0,05, Copeland 0,085; die **Gewichtung** nach Übereinstimmung mit dem Konsens
-erkennt Zufall, weil Zufall mit niemandem übereinstimmt. **Manipulatoren, die den wahren Besten ans Ende setzen,** treffen Borda am schlimmsten: mit 2 von 15 steht der Beste nur noch in 0,33
-der Läufe oben (Copeland 0,92), mit 4 von 15 in **0,00** (Copeland 0,67); die Gewichtung hilft dort nicht (0,07), weil die Manipulatoren sonst mit dem Konsens übereinstimmen. Das bloße
-**Hochsetzen des Ziels** wirkt kaum (bis 6 von 15 gewinnt es nie). **Eine Mehrheit** (8 von 15) steuert Median, Copeland und Kemeny vollständig (Ziel gewinnt in 100 % der Läufe), Borda hält
-sich (0,03): Mehrheitsregeln schützen vor Minderheiten, nicht vor Mehrheiten. **Kein Verfahren ist gegen jeden Angriff robust.**
+gibt Zufalls-Bewertern im Mittel ein viel kleineres Gewicht (0,14 gegen 0,78 bei den mittleren), weil Zufall mit niemandem übereinstimmt. **Manipulatoren, die den wahren Besten ans Ende setzen,** treffen Borda
+bei einer Minderheit am schlimmsten (in diesem einen Angriff): mit 2 von 15 steht der Beste beim Borda nur noch in 0,33 der Läufe oben (Copeland 0,92), mit 4 von 15 in **0,00** (Copeland 0,67); die Gewichtung hilft dort
+kaum (0,07): die Manipulatoren bekommen zwar weniger Gewicht (im Mittel 0,41 gegen 0,75 bei den ehrlichen mittleren), stimmen aber sonst weitgehend mit dem Konsens überein. Das bloße
+**Hochsetzen eines Ziels von wahrem Rang 5** wirkt kaum (bis 6 von 15 gewinnt es in keinem der 60 Läufe); ein Ziel auf Rang 2 gewinnt schon mit 2 von 15 gelegentlich. **Eine Mehrheit** (8 von 15) steuert Median, Copeland und Kemeny vollständig (Ziel gewinnt in 100 % der Läufe); Borda lässt das Ziel auf Rang 5
+selten gewinnen (0,03), verliert aber ebenfalls den richtigen Sieger (0,00): Mehrheitsregeln schützen nur begrenzt vor Minderheiten und nicht vor Mehrheiten. **Kein Verfahren ist gegen jeden Angriff robust.**
 
 ## Modell
 
 - **Wahrheit:** n ≤ 8 Teilnehmer mit gleichabständigen Stärken (Abstand 0,3, Generator Version 1), P(i schlägt j) = σ(s_i − s_j).
 - **Bewerter:** *ehrlich* (gut: 16, mittel: 4, schlecht: 1 Partien je Paar im eigenen Turnier; Rangfolge nach den Siegen), *Zufall* (zufällige Rangfolge), *Manipulator* (urteilt wie ein
-  mittlerer Bewerter, setzt aber das Ziel nach vorn und/oder den wahren Besten ans Ende). Die Manipulatoren kennen Wahrheit und Ziel: stärkster Angreifer.
+  mittlerer Bewerter, setzt aber das Ziel nach vorn und/oder den wahren Besten ans Ende). Die Manipulatoren kennen Wahrheit und Ziel, spielen aber nur zwei einfache Strategien.
 - **Verfahren:** Borda (Summe der Plätze), Median-Rang, Copeland (paarweise Mehrheiten), Kemeny (exakt, Teilmengen-Rechnung), **gewichtetes Borda** (Gewicht = 1 − 2 · Abstand zum Konsens /
   größter Abstand, nicht unter 0; drei Runden).
 - **Maße:** Abstand zur Wahrheit (normierte Kendall-Distanz), **Sieger richtig** (der wahre Beste steht oben) und **Ziel gewinnt** (das Ziel der Manipulatoren steht oben).
@@ -42,9 +43,9 @@ Alle Zahlen: 60 feste Läufe, 8 Teilnehmer; „Abstand“ ist der Anteil falsch 
 |---|---|---|
 | Zahl der schlechten Bewerter (1 / 3 / 5 / 9 / 15 / 31), Borda | Abstand **0,239 / 0,133 / 0,119 / 0,070 / 0,035 / 0,011**; Sieger richtig 0,43 / 0,63 / 0,68 / 0,75 / 0,78 / 0,90. Bei 31 Bewertern Copeland und Kemeny 0,021. | `test_more_raters_average_out_the_noise` |
 | Gemischte Qualität, 9 Bewerter (9 mittlere / 3 + 3 + 3 / 2 gute + 7 schlechte), Borda | 0,032 / 0,032 / **0,051**; Copeland 0,030 / 0,018 / 0,043; gewichtet 0,032 / 0,023 / 0,046. | `test_mixed_quality_hardly_matters_without_spam` |
-| Zufalls-Bewerter, 15 Bewerter (0 / 4 / 8 / 11 zufällig), Abstand Borda → gewichtet | **0,014 → 0,012; 0,054 → 0,030; 0,130 → 0,051; 0,234 → 0,131**; Copeland 0,085 und Kemeny 0,083 bei 8; Sieger richtig bei 8: Borda 0,58, gewichtet 0,80. | `test_random_raters_hurt_borda_most_and_the_weights_catch_them` |
+| Zufalls-Bewerter, 15 Bewerter (0 / 4 / 8 / 11 zufällig), Abstand Borda → gewichtet | **0,014 → 0,012; 0,054 → 0,030; 0,130 → 0,051; 0,234 → 0,131**; Copeland 0,085 und Kemeny 0,082 bei 8; Sieger richtig bei 8: Borda 0,58, gewichtet 0,80. | `test_random_raters_hurt_borda_most_and_the_weights_catch_them` |
 | Besten ans Ende (2 / 4 / 6 von 15), Sieger richtig | Borda **0,33 / 0,00 / 0,00**; Median 0,83 / 0,57 / 0,30; Copeland 0,92 / 0,67 / 0,37; Kemeny 0,92 / 0,67 / 0,37; gewichtet 0,73 / 0,07 / 0,00. | `test_burying_the_best_is_what_hurts` |
-| Ziel hochsetzen (2 / 4 / 6 von 15) | Sieger richtig bei allen Verfahren über 0,95, Ziel gewinnt nie; Abstand Borda 0,064 bei 6. | `test_pushing_the_target_up_changes_little_below_a_majority` |
+| Ziel hochsetzen (2 / 4 / 6 von 15) | Sieger richtig bei allen Verfahren mindestens 0,95, das Ziel (wahrer Rang 5) gewinnt in keinem der 60 Läufe; Abstand Borda 0,064 bei 6. | `test_pushing_the_target_up_changes_little_below_a_majority` |
 | Mehrheit, beides (8 von 15), Ziel gewinnt | Median, Copeland, Kemeny **1,00**; Borda 0,03; gewichtet 0,17; Sieger richtig bei allen 0,00. | `test_a_majority_captures_the_majority_rules_but_not_borda` |
 | Verdikte nennen dieselben Zahlen | Die live berechneten Texte der App geben die obigen Werte wieder. | `test_verdicts_quote_the_measured_numbers` |
 
@@ -55,9 +56,9 @@ Alle Zahlen: 60 feste Läufe, 8 Teilnehmer; „Abstand“ ist der Anteil falsch 
   Regressionstest `test_kemeny_ties_between_several_optima_are_resolved_by_the_key_not_by_the_index`. **Alle Zahlen dieser README blieben innerhalb der Toleranz der Claims-Tests unverändert.** Außerdem teilte
   `weighted_borda` bei einem einzigen Kandidaten durch null (außerhalb des Demo-Bereichs); behoben.
 - **Die Gleichstandsregel verzerrte die Vorab-Messung:** Sie sortierte stabil nach dem Index des Teilnehmers, also zugunsten des wahren Besten (Index 0). Mit einem festen Zufallsschlüssel je
-  Instanz liegen die Zahlen etwas schlechter: Borda-Sieger richtig ohne Manipulation 0,95 statt 0,98; Zufall 8 von 15: Borda 0,130 statt 0,112, gewichtet 0,051 statt 0,040, Copeland 0,085 statt
-  0,067; Besten ans Ende, 2 von 15: Borda 0,33 statt 0,24. Die Aussagen bleiben.
-- **Gewichtung gegen Zufall ist stark, gegen Strategie wirkungslos:** das stand so im Plan; das Verdikt der App sagt es mit den Zahlen der Läufe.
+  Instanz liegen die Zahlen etwas schlechter, soweit sich das heute nachrechnen lässt (die Vorab-Zahlen stammen aus einer früheren Fassung und sind nicht reproduzierbar, sie gelten nur als Größenordnung): Borda-Sieger richtig ohne Manipulation 0,95 (vorab rund 0,98);
+  Zufall 8 von 15: Borda 0,130 (vorab rund 0,11), gewichtet 0,051 (vorab rund 0,04), Copeland 0,085 (vorab rund 0,07). Die Aussagen bleiben.
+- **Gewichtung gegen Zufall ist stark, gegen Strategie nur bei sehr wenigen Manipulatoren wirksam:** im Plan stand „gegen Strategie wirkungslos“; gemessen hilft die Gewichtung bei 2 von 15 (Sieger richtig 0,73 gegen 0,33 beim Borda), beim Begraben des Besten mit 4 und 6 von 15 kaum (0,07 und 0,00).
 - **Der Vorteil von Borda bei gleichem Rauschen bleibt klein, aber stabil:** bei 31 schlechten Bewertern 0,011 gegen 0,021 bei Copeland und Kemeny (Plan: 0,023 gegen 0,033).
 - Die Zahlen verschieben sich sonst um wenige Hundertstel (60 statt 100 Läufe, SplitMix64-Strom).
 
@@ -71,10 +72,10 @@ Alle Zahlen: 60 feste Läufe, 8 Teilnehmer; „Abstand“ ist der Anteil falsch 
 
 ## Ehrliche Grenzen
 
-- **Die Manipulatoren kennen die Wahrheit und das Ziel:** stärkster Angreifer; echte Angreifer kennen nur das Feld und treffen schlechter.
+- **Die Manipulatoren kennen die Wahrheit und das Ziel,** spielen aber nur zwei einfache Strategien (Ziel nach vorn, Besten ans Ende); stärkere Angriffe (z. B. alle Rivalen umgekehrt anordnen) sind nicht gemessen, und die Befunde zu Borda bei einer Mehrheit und zum Hochsetzen des Ziels gelten nur für die gewählten Angriffe. Ob echte Angreifer schlechter treffen, ist nicht gemessen.
 - **Die Rangfolgen sind vollständig und aus eigenen kleinen Turnieren:** künstliches Rauschen, keine echten Bewerter (Vorlieben, Ermüdung, Absprachen); keine Lücken, keine Stufen.
 - **n ≤ 8:** wegen exaktem Kemeny; größere Felder nicht gemessen.
-- **Gewichtung nach Übereinstimmung:** Ein Panel mit Mehrheit schlechter Bewerter zieht den Konsens (und damit die Gewichte) in die falsche Richtung.
+- **Gewichtung nach Übereinstimmung:** Bei einer Mehrheit schlechter Bewerter ist der Konsens, nach dem gewichtet wird, selbst ungenau; die Gewichtung hilft dann weniger (gemessen: bei 11 von 15 Zufalls-Bewertern noch spürbar).
 - **Unmöglichkeitssätze nicht gemessen:** Der Satz von Gibbard und Satterthwaite (Manipulation) und Arrows Unmöglichkeitssatz (faire Aggregation von Rangfolgen) stehen nur als Hinweis in einem Satz.
 - **Alles simuliert:** keine Aussage über echte Jurys oder Plattformen.
 
@@ -91,7 +92,7 @@ Alle Zahlen: 60 feste Läufe, 8 Teilnehmer; „Abstand“ ist der Anteil falsch 
 
 ## Tests
 
-105 Tests, einige Minuten (die Experimente rechnen über 60 feste Läufe): Einheiten gegen Handwerte (`test_aggregate.py`: Kendall-Abstand, Borda, Median, Copeland, Kemeny, Gewichte;
+105 Tests, rund zwei Minuten (die Experimente rechnen über 60 feste Läufe): Einheiten gegen Handwerte (`test_aggregate.py`: Kendall-Abstand, Borda, Median, Copeland, Kemeny, Gewichte;
 `test_scenario.py`: Wahrheit, ehrliche Rangfolgen, Zufall, Manipulation, Ströme), Generator (`test_generator.py`, wortgleich), **Orakel** (`test_oracle_bewerter.py`: Kendall-Abstand gegen
 scipy, Borda und Copeland gegen skalare Aufzählung, Kemeny gegen Aufzählen aller Permutationen, Eigenschaften über feste Läufe), Maße und Verdikte (`test_evaluation.py`), alle Zahlen dieses
 README (`test_claims.py`), Presets, Szenario und PDF (`test_presets.py`), Laufzeit-Importe und AppTest-Rauchtests.

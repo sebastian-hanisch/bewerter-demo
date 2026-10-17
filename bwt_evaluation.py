@@ -130,15 +130,15 @@ def verdict_count(e1):
 def verdict_mix(e2):
     uniform, mixed, few = (e2[m] for m in C.EXP_MIXES)
     return "info", (f"Neun mittlere Bewerter: Abstand {de(uniform['Borda'][0], 3)} (Borda). Drei gute, drei mittlere, drei schlechte: {de(mixed['Borda'][0], 3)}; zwei gute und sieben "
-                    f"schlechte: Borda {de(few['Borda'][0], 3)}, Copeland {de(few['Copeland'][0], 3)}, gewichtet {de(few['Borda gewichtet'][0], 3)}. Die Unterschiede sind klein: "
-                    "Wenige gute Bewerter gehen im Rauschen der vielen schlechten unter, solange ehrlich geurteilt wird.")
+                    f"schlechte: Borda {de(few['Borda'][0], 3)}, Copeland {de(few['Copeland'][0], 3)}, gewichtet {de(few['Borda gewichtet'][0], 3)}. Die Unterschiede sind klein, aber nicht null: "
+                    "Die vielen schlechten Bewerter helfen den wenigen guten kaum, schaden aber auch kaum, solange ehrlich geurteilt wird.")
 
 
 def verdict_random(e3):
     half = e3[8]
     return "warning", (f"Wenn 8 von 15 Bewertern raten, liegt der Abstand beim Borda bei **{de(half['Borda'][0], 3)}**, beim gewichteten Borda bei **{de(half['Borda gewichtet'][0], 3)}**, "
                        f"bei Copeland {de(half['Copeland'][0], 3)}; Sieger richtig {de(half['Borda'][1])} gegen {de(half['Borda gewichtet'][1])}. Das Gewicht (Übereinstimmung mit dem "
-                       "Konsens) erkennt Zufall, weil Zufall mit niemandem übereinstimmt.")
+                       "Konsens) fällt für Zufalls-Bewerter im Mittel viel kleiner aus, weil Zufall mit niemandem übereinstimmt.")
 
 
 def verdict_bury(e4):
@@ -146,11 +146,11 @@ def verdict_bury(e4):
     up6 = e4[(STRATEGY_UP, 6)]
     return "warning", (f"Setzen 2 von 15 den wahren Besten ans Ende, steht er nur noch bei **{pct(c2['Borda'][1])} %** der Läufe beim Borda oben (Copeland {pct(c2['Copeland'][1])} %, Kemeny "
                        f"{pct(c2['Kemeny'][1])} %, gewichtet {pct(c2['Borda gewichtet'][1])} %); bei 4 von 15: Borda {pct(c4['Borda'][1])} %, Copeland {pct(c4['Copeland'][1])} %, gewichtet "
-                       f"{pct(c4['Borda gewichtet'][1])} %. Das bloße Hochsetzen des Ziels wirkt kaum (6 von 15: Sieger richtig {pct(up6['Borda'][1])} %, Ziel gewinnt {pct(up6['Borda'][2])} %).")
+                       f"{pct(c4['Borda gewichtet'][1])} %. Das bloße Hochsetzen eines Ziels von wahrem Rang 5 wirkt kaum (6 von 15: Sieger richtig {pct(up6['Borda'][1])} %, Ziel gewinnt {pct(up6['Borda'][2])} %).")
 
 
 def verdict_majority(e4):
     r = {m: e4[(STRATEGY_BOTH, 8)][m][2] for m in C.METHODS}
     return "warning", ("Mit 8 von 15 (Mehrheit) steht das Ziel in diesen Anteilen der Läufe oben: " + ", ".join(f"{m} {pct(r[m])} %" for m in C.METHODS) +
-                       ". Eine Mehrheit steuert Median, Copeland und Kemeny vollständig; Borda hält sich besser, weil das Ziel bei den ehrlichen Bewertern schlecht liegt. "
+                       ". Eine Mehrheit steuert Median, Copeland und Kemeny vollständig; Borda lässt das Ziel seltener gewinnen, weil es bei den ehrlichen Bewertern schlecht liegt (den richtigen Sieger findet es dennoch nicht). "
                        "Kein Verfahren ist gegen jede Art Angriff robust: für Manipulation sagt das der Satz von Gibbard und Satterthwaite, für faire Aggregation überhaupt Arrows Unmöglichkeitssatz.")

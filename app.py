@@ -80,7 +80,7 @@ with st.sidebar:
     n_bad = st.slider("Schlechte Bewerter", *bounds("bad_slider"), key="bad_slider", help="Eigenes Turnier mit 1 Partie je Paar: viel Rauschen.")
     n_rand = st.slider("Zufalls-Bewerter", *bounds("rand_slider"), key="rand_slider", help="Bringen eine zufällige Rangfolge (raten).")
     n_manip = st.slider("Manipulatoren", *bounds("manip_slider"), key="manip_slider",
-                        help="Urteilen wie mittlere Bewerter, setzen aber das Ziel nach vorn und/oder den wahren Besten ans Ende. Sie kennen die Wahrheit und das Ziel (stärkster Angreifer).")
+                        help="Urteilen wie mittlere Bewerter, setzen aber das Ziel nach vorn und/oder den wahren Besten ans Ende. Sie kennen die Wahrheit und das Ziel, spielen aber nur zwei einfache Strategien.")
     strategy = st.selectbox("Strategie der Manipulatoren", C.STRATEGIES, key="strategy_select", help="Ziel auf Platz 1, Besten auf den letzten Platz, oder beides.")
     st.session_state["target_slider"] = min(int(st.session_state["target_slider"]), int(n))
     target = st.slider("Wahrer Rang des Ziels", C.TARGET_MIN, int(n), key="target_slider", help="Welcher Teilnehmer nach oben gesetzt werden soll (2 = der Zweitbeste).")
@@ -139,7 +139,7 @@ else:
     cl, cr = st.columns(2)
     with cl:
         st.plotly_chart(build_raters(a), width="stretch", key="raters_chart")
-        st.caption("Abstand jedes Bewerters zur Wahrheit (Balken) und sein Gewicht im gewichteten Borda (Raute). Zufalls-Bewerter haben Gewicht nahe 0; Manipulatoren behalten es.")
+        st.caption("Abstand jedes Bewerters zur Wahrheit (Balken) und sein Gewicht im gewichteten Borda (Raute). Zufalls-Bewerter haben im Mittel ein kleines Gewicht; Manipulatoren verlieren nur einen Teil davon (bei einer Mehrheit keinen).")
     with cr:
         st.plotly_chart(build_consensus(a), width="stretch", key="consensus_chart")
         st.caption("Platz jedes Teilnehmers bei jedem Verfahren; die untere Zeile ist die Wahrheit.")
@@ -196,10 +196,10 @@ st.markdown(
     """
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
-| **Die Manipulatoren kennen die Wahrheit** | Das ist der stärkste Angreifer; echte Angreifer kennen nur das Feld und treffen schlechter. | – |
+| **Die Manipulatoren kennen die Wahrheit** | Sie spielen nur zwei einfache Strategien (Ziel nach vorn, Besten ans Ende); stärkere Angriffe sind nicht gemessen. Ob echte Angreifer schlechter treffen, ist nicht gemessen. | – |
 | **Die Rangfolgen sind vollständig** | Echte Bewerter ordnen nicht alle Teilnehmer; Lücken und Mehrfachbewertungen sind nicht modelliert. | Massey und Colley |
 | **Das Rauschen ist künstlich** | Es entsteht aus kleinen Turnieren; echte Bewerter haben Vorlieben, Ermüdung, Absprachen. | – |
-| **Ein Panel mit Mehrheit schlechter Bewerter** | Die Gewichtung nach Übereinstimmung zieht Konsens und Gewichte in die falsche Richtung. | – |
+| **Ein Panel mit Mehrheit schlechter Bewerter** | Der Konsens, nach dem gewichtet wird, ist selbst ungenau; die Gewichtung hilft dann weniger (gemessen: bei 11 von 15 Zufalls-Bewertern noch spürbar). | – |
 | **Nur 8 Teilnehmer** | Kemeny ist exakt gerechnet (Teilmengen-Rechnung); größere Felder sind nicht gemessen. | – |
 | **Kein Verfahren ist angriffssicher** | Für Manipulation sagt das der Satz von Gibbard und Satterthwaite, für faire Aggregation überhaupt Arrows Unmöglichkeitssatz; hier wird nur gemessen, gegen welchen Angriff bei welchem Anteil. | – |
 | **Alles ist simuliert** | Die Zahlen gelten für dieses Rauschen und diese Angriffe. | – |
