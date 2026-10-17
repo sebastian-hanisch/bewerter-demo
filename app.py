@@ -201,7 +201,7 @@ st.markdown(
 | **Das Rauschen ist künstlich** | Es entsteht aus kleinen Turnieren; echte Bewerter haben Vorlieben, Ermüdung, Absprachen. | – |
 | **Ein Panel mit Mehrheit schlechter Bewerter** | Die Gewichtung nach Übereinstimmung zieht Konsens und Gewichte in die falsche Richtung. | – |
 | **Nur 8 Teilnehmer** | Kemeny ist exakt gerechnet (Teilmengen-Rechnung); größere Felder sind nicht gemessen. | – |
-| **Kein Verfahren ist angriffssicher** | Das sagen die Unmöglichkeitssätze von Arrow und Gibbard–Satterthwaite in einem Satz; hier wird nur gemessen, gegen welchen Angriff bei welchem Anteil. | – |
+| **Kein Verfahren ist angriffssicher** | Für Manipulation sagt das der Satz von Gibbard und Satterthwaite, für faire Aggregation überhaupt Arrows Unmöglichkeitssatz; hier wird nur gemessen, gegen welchen Angriff bei welchem Anteil. | – |
 | **Alles ist simuliert** | Die Zahlen gelten für dieses Rauschen und diese Angriffe. | – |
 """
 )
@@ -229,12 +229,12 @@ steht auf Platz 1. *Ziel gewinnt:* das Ziel steht auf Platz 1.
 **Zufall.** SplitMix64-Strom des Generators; je Bewerter ein eigener Strom aus (Seed, laufende Nummer).
 
 **Literatur.**
-- Arrow, K. J. (1951): *Social Choice and Individual Values* (nicht eingesehen).
+- Arrow, K. J. (1951): *Social Choice and Individual Values* (eingesehen 2026-10-17: Cowles-Monographie 12, Ausgabe 1951, Kapitel I S. 2–3 [Paradox der Mehrheitswahl], S. 7 [Strategiewahl ausdrücklich ausgeklammert], Kapitel V Theorem 2 S. 59).
 - Gibbard, A. (1973): Manipulation of voting schemes: a general result. *Econometrica* 41, 587–601 (nicht eingesehen).
-- Satterthwaite, M. A. (1975): Strategy-proofness and Arrow's conditions. *Journal of Economic Theory* 10, 187–217 (nicht eingesehen).
+- Satterthwaite, M. A. (1975): Strategy-proofness and Arrow's conditions. *Journal of Economic Theory* 10, 187–217 (eingesehen 2026-10-17 in der Arbeitspapierfassung, Northwestern Discussion Paper 122, 1974, Zusammenfassung und Einleitung; die Zeitschriftenfassung selbst nicht).
 - Kemeny, J. G. (1959): Mathematics without numbers. *Daedalus* 88, 577–591 (nicht eingesehen).
-- Dawid, A. P., Skene, A. M. (1979): Maximum likelihood estimation of observer error-rates using the EM algorithm. *Journal of the Royal Statistical Society C* 28, 20–28 (nicht eingesehen).
-- Chen, X., Bennett, P. N., Collins-Thompson, K., Horvitz, E. (2013): Pairwise ranking aggregation in a crowdsourced setting. *WSDM 2013* (nicht eingesehen).
+- Dawid, A. P., Skene, A. M. (1979): Maximum likelihood estimation of observer error-rates using the EM algorithm. *Journal of the Royal Statistical Society C* 28, 20–28 (eingesehen 2026-10-17, S. 20–21: Fehlerraten je Beobachter, gewichteter Konsens).
+- Chen, X., Bennett, P. N., Collins-Thompson, K., Horvitz, E. (2013): Pairwise ranking aggregation in a crowdsourced setting. *WSDM 2013* (eingesehen 2026-10-17 in der Autorenfassung, Abschnitte 1 und 3: Crowd-BT, Spammer und böswillige Annotatoren).
 - Steele, G. L., Lea, D., Flood, C. H. (2014): Fast splittable pseudorandom number generators. *OOPSLA 2014*, 453–472 (Zufallsstrom des Generators).
         """
     )

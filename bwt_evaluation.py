@@ -153,4 +153,4 @@ def verdict_majority(e4):
     r = {m: e4[(STRATEGY_BOTH, 8)][m][2] for m in C.METHODS}
     return "warning", ("Mit 8 von 15 (Mehrheit) steht das Ziel in diesen Anteilen der Läufe oben: " + ", ".join(f"{m} {pct(r[m])} %" for m in C.METHODS) +
                        ". Eine Mehrheit steuert Median, Copeland und Kemeny vollständig; Borda hält sich besser, weil das Ziel bei den ehrlichen Bewertern schlecht liegt. "
-                       "Kein Verfahren ist gegen jede Art Angriff robust (das sagen die Unmöglichkeitssätze von Arrow und Gibbard–Satterthwaite in einem Satz).")
+                       "Kein Verfahren ist gegen jede Art Angriff robust: für Manipulation sagt das der Satz von Gibbard und Satterthwaite, für faire Aggregation überhaupt Arrows Unmöglichkeitssatz.")

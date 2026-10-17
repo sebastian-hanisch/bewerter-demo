@@ -96,7 +96,7 @@ def test_bury_verdict_quotes_the_numbers():
 def test_majority_verdict_quotes_the_numbers():
     e4 = {(BOTH, 8): _cell(0.2, 0.0, Borda=(0.2, 0.0, 0.033), Median=(0.3, 0, 1.0), Copeland=(0.3, 0, 1.0), Kemeny=(0.3, 0, 1.0), Borda_gewichtet=(0.2, 0, 0.167))}
     t = ev.verdict_majority(e4)[1]
-    assert "Borda 3 %, Median 100 %, Copeland 100 %, Kemeny 100 %, Borda gewichtet 17 %" in t and "Arrow" in t and "Gibbard" in t
+    assert "Borda 3 %, Median 100 %, Copeland 100 %, Kemeny 100 %, Borda gewichtet 17 %" in t and "für Manipulation sagt das der Satz von Gibbard und Satterthwaite, für faire Aggregation überhaupt Arrows Unmöglichkeitssatz" in t
 
 
 def test_analysis_verdict_names_the_nearest_method_and_the_methods_the_target_wins():

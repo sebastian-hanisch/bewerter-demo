@@ -15,9 +15,13 @@ zur Methode; Sekundärquelle, die Zahlen sind aber ein Lehrbuchbeispiel und rech
     - https://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method, Abschnitt Beispiel: Kemeny-Wertung (Summe der "X vor Y"-Prozente) für alle
       24 Rangfolgen; Maximum 393 für N, C, K, M (Tabelle unten vollständig übernommen).
 Die Wählerverteilung wird als 100 Bewerter mit 42, 26, 15 und 17 gleichen Rangfolgen abgebildet.
+(c) Arrow, K. J. (1951): Social Choice and Individual Values (Cowles Commission Monograph 12, Wiley, Ausgabe 1951; Scan der Cowles-Foundation-Datei, gelesen über
+    eine Archivkopie), Kapitel I Abschnitt 1, S. 2-3, gelesen 2026-10-17: Paradox der Mehrheitswahl. Drei Wähler, Alternativen A, B, C: Wähler 1: A vor B vor C,
+    Wähler 2: B vor C vor A, Wähler 3: C vor A vor B. Eine Mehrheit zieht A dem B vor, eine Mehrheit B dem C und eine Mehrheit C dem A (Kreis).
 
-NICHT eingesehen (daher kein Test, siehe Bericht "offen"): Kemeny 1959 (Daedalus 88), Young und Levenglick 1978 (SIAM J. Appl. Math. 35),
-Arrow 1951, Gibbard 1973, Satterthwaite 1975; für Median-Rang und das gewichtete Borda dieser Demo gibt es keine Literaturwerte (eigene Konstruktion).
+NICHT eingesehen (daher kein Test, siehe Bericht "offen"): Kemeny 1959 (Daedalus 88), Young und Levenglick 1978 (SIAM J. Appl. Math. 35), Gibbard 1973;
+Satterthwaite 1975 nur in der Arbeitspapierfassung (Northwestern Discussion Paper 122, 1974, ohne Zahlenbeispiel); für Median-Rang und das gewichtete Borda
+dieser Demo gibt es keine Literaturwerte (eigene Konstruktion).
 """
 
 import itertools
@@ -104,3 +108,17 @@ def test_tennessee_kemeny_scores_of_all_24_rankings_and_the_optimum():
     # der Kemeny-Abstand der Demo (Summe der Kendall-Abstände) ist die Gesamtzahl der Paarentscheidungen minus Wertung: 6 * 100 - 393
     got = A.kemeny(ranks, TB)
     assert sum(A.kendall(got, r) for r in ranks) == 6 * 100 - 393
+
+
+def test_arrow_paradox_of_voting_gives_a_majority_cycle():
+    # Arrow 1951, Kapitel I Abschnitt 1, S. 2-3: Wähler 1: A>B>C, Wähler 2: B>C>A, Wähler 3: C>A>B (Platzziffern 0-basiert, Spalten A, B, C)
+    ranks = np.array([[0, 1, 2], [2, 0, 1], [1, 2, 0]])
+    P = A.pref_matrix(ranks)
+    assert P[0, 1] == 2 and P[1, 0] == 1           # eine Mehrheit zieht A dem B vor
+    assert P[1, 2] == 2 and P[2, 1] == 1           # eine Mehrheit zieht B dem C vor
+    assert P[2, 0] == 2 and P[0, 2] == 1           # aber eine Mehrheit zieht C dem A vor: Kreis
+    tb = np.array([0.0, 0.1, 0.2])
+    # Im Kreis schlägt jeder genau einen anderen: Copeland-Wertung gleich (je 1 Sieg), also entscheidet allein der Gleichstandsschlüssel
+    wins = (P > P.T).sum(axis=1)
+    assert wins.tolist() == [1, 1, 1]
+    assert A.copeland(ranks, tb).tolist() == [0, 1, 2]

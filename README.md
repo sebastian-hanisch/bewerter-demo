@@ -75,23 +75,23 @@ Alle Zahlen: 60 feste Läufe, 8 Teilnehmer; „Abstand“ ist der Anteil falsch 
 - **Die Rangfolgen sind vollständig und aus eigenen kleinen Turnieren:** künstliches Rauschen, keine echten Bewerter (Vorlieben, Ermüdung, Absprachen); keine Lücken, keine Stufen.
 - **n ≤ 8:** wegen exaktem Kemeny; größere Felder nicht gemessen.
 - **Gewichtung nach Übereinstimmung:** Ein Panel mit Mehrheit schlechter Bewerter zieht den Konsens (und damit die Gewichte) in die falsche Richtung.
-- **Unmöglichkeitssätze nicht gemessen:** Arrow und Gibbard–Satterthwaite stehen nur als Hinweis in einem Satz.
+- **Unmöglichkeitssätze nicht gemessen:** Der Satz von Gibbard und Satterthwaite (Manipulation) und Arrows Unmöglichkeitssatz (faire Aggregation von Rangfolgen) stehen nur als Hinweis in einem Satz.
 - **Alles simuliert:** keine Aussage über echte Jurys oder Plattformen.
 
 ## Quellen
 
-- Arrow, K. J. (1951): *Social Choice and Individual Values* (nicht eingesehen).
+- Arrow, K. J. (1951): *Social Choice and Individual Values* (eingesehen 2026-10-17: Cowles-Monographie 12, Ausgabe 1951, Kapitel I S. 2–3 [Paradox der Mehrheitswahl], S. 7 [Strategiewahl ausdrücklich ausgeklammert], Kapitel V Theorem 2 S. 59).
 - Gibbard, A. (1973): Manipulation of voting schemes: a general result. *Econometrica* 41, 587–601 (nicht eingesehen).
-- Satterthwaite, M. A. (1975): Strategy-proofness and Arrow's conditions. *Journal of Economic Theory* 10, 187–217 (nicht eingesehen).
+- Satterthwaite, M. A. (1975): Strategy-proofness and Arrow's conditions. *Journal of Economic Theory* 10, 187–217 (eingesehen 2026-10-17 in der Arbeitspapierfassung, Northwestern Discussion Paper 122, 1974, Zusammenfassung und Einleitung; die Zeitschriftenfassung selbst nicht).
 - Kemeny, J. G. (1959): Mathematics without numbers. *Daedalus* 88, 577–591 (nicht eingesehen).
-- Dawid, A. P., Skene, A. M. (1979): Maximum likelihood estimation of observer error-rates using the EM algorithm. *Journal of the Royal Statistical Society C* 28, 20–28 (nicht eingesehen).
-- Chen, X., Bennett, P. N., Collins-Thompson, K., Horvitz, E. (2013): Pairwise ranking aggregation in a crowdsourced setting. *WSDM 2013* (nicht eingesehen).
+- Dawid, A. P., Skene, A. M. (1979): Maximum likelihood estimation of observer error-rates using the EM algorithm. *Journal of the Royal Statistical Society C* 28, 20–28 (eingesehen 2026-10-17, S. 20–21: Fehlerraten je Beobachter, gewichteter Konsens).
+- Chen, X., Bennett, P. N., Collins-Thompson, K., Horvitz, E. (2013): Pairwise ranking aggregation in a crowdsourced setting. *WSDM 2013* (eingesehen 2026-10-17 in der Autorenfassung, Abschnitte 1 und 3: Crowd-BT, Spammer und böswillige Annotatoren).
 - Steele, G. L., Lea, D., Flood, C. H. (2014): Fast splittable pseudorandom number generators. *OOPSLA 2014*, 453–472 (Zufallsstrom des Generators).
-- **Nicht herangezogen:** Arbeiten zu Crowd-BT und zur Rater-Modellierung mit Bias und Schwere; die Zahlen dieser Demo sind Simulation.
+- **Nicht umgesetzt:** Crowd-BT (Chen et al. 2013) und Modelle mit Bias und Schwere (die Demo gewichtet die Bewerter nur nach ihrer Übereinstimmung mit dem Konsens, als gewichtetes Borda); die Zahlen dieser Demo sind Simulation.
 
 ## Tests
 
-83 Tests, einige Minuten (die Experimente rechnen über 60 feste Läufe): Einheiten gegen Handwerte (`test_aggregate.py`: Kendall-Abstand, Borda, Median, Copeland, Kemeny, Gewichte;
+105 Tests, einige Minuten (die Experimente rechnen über 60 feste Läufe): Einheiten gegen Handwerte (`test_aggregate.py`: Kendall-Abstand, Borda, Median, Copeland, Kemeny, Gewichte;
 `test_scenario.py`: Wahrheit, ehrliche Rangfolgen, Zufall, Manipulation, Ströme), Generator (`test_generator.py`, wortgleich), **Orakel** (`test_oracle_bewerter.py`: Kendall-Abstand gegen
 scipy, Borda und Copeland gegen skalare Aufzählung, Kemeny gegen Aufzählen aller Permutationen, Eigenschaften über feste Läufe), Maße und Verdikte (`test_evaluation.py`), alle Zahlen dieses
 README (`test_claims.py`), Presets, Szenario und PDF (`test_presets.py`), Laufzeit-Importe und AppTest-Rauchtests.
